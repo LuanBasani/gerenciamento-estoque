@@ -6,8 +6,8 @@ Sistema desenvolvido para a unidade escolar do SENAI-SP com o objetivo de contro
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Java 17**
-- **Spring Boot 3.x**
+- **Java 21**
+- **Spring Boot 4**
 - **Spring Data JPA**
 - **Thymeleaf**
 - **PostgreSQL**
