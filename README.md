@@ -141,7 +141,7 @@ movimentacoes                 ativos_patrimoniais
 
 ---
 
-## 👨‍💻 Desenvolvido por
+## 👨‍💻 Desenvolvido por Enzo Basani
 
 Projeto desenvolvido como Situação de Aprendizagem — Back-End  
 **SENAI-SP**
