@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Materiais | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main class="senai-main">
+        <div class="senai-shell" style="display:block;">
+            <h1 class="senai-title">Materiais</h1>
+            <div th:if="${erro}" class="senai-alert senai-alert-error"><p th:text="${erro}"></p></div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Novo Material</h2>
+                <form th:action="@{/materiais/salvar}" method="post" class="senai-form">
+                    <label class="senai-label">Nome</label>
+                    <input class="senai-input" type="text" name="nome" required maxlength="150"/>
+                    <label class="senai-label">Descrição</label>
+                    <input class="senai-input" type="text" name="descricao" maxlength="255"/>
+                    <label class="senai-label">Quantidade inicial</label>
+                    <input class="senai-input" type="number" name="quantidade" min="0" required/>
+                    <label class="senai-label">Categoria</label>
+                    <select class="senai-input" name="categoriaId" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+                    </select>
+                    <button class="senai-button" type="submit" style="margin-top:8px;">Salvar</button>
+                </form>
+            </div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Materiais Cadastrados</h2>
+                <table style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#F3F4F6;">
+                            <th style="padding:10px; text-align:left;">Nome</th>
+                            <th style="padding:10px; text-align:left;">Categoria</th>
+                            <th style="padding:10px; text-align:left;">Estoque</th>
+                            <th style="padding:10px; text-align:left;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mat : ${materiais}" style="border-top:1px solid #E5E7EB;">
+                            <td style="padding:10px;" th:text="${mat.nome}"></td>
+                            <td style="padding:10px;" th:text="${mat.categoria.nome}"></td>
+                            <td style="padding:10px;" th:text="${mat.quantidadeEstoque}"></td>
+                            <td style="padding:10px;">
+                                <a th:href="@{/materiais/deletar/{id}(id=${mat.id})}"
+                                   style="color:#E30613; font-weight:700; text-decoration:none;"
+                                   onclick="return confirm('Deseja excluir?')">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

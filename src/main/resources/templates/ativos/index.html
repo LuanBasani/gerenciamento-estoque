@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ativos Patrimoniais | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main class="senai-main">
+        <div class="senai-shell" style="display:block;">
+            <h1 class="senai-title">Ativos Patrimoniais</h1>
+            <div th:if="${erro}" class="senai-alert senai-alert-error"><p th:text="${erro}"></p></div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Novo Ativo</h2>
+                <form th:action="@{/ativos/salvar}" method="post" class="senai-form">
+                    <label class="senai-label">Nome</label>
+                    <input class="senai-input" type="text" name="nome" required maxlength="150"/>
+                    <label class="senai-label">Número de Patrimônio</label>
+                    <input class="senai-input" type="text" name="numeroPatrimonio" required maxlength="50"/>
+                    <label class="senai-label">Descrição</label>
+                    <input class="senai-input" type="text" name="descricao" maxlength="255"/>
+                    <label class="senai-label">Localização</label>
+                    <input class="senai-input" type="text" name="localizacao" maxlength="100"/>
+                    <label class="senai-label">Estado</label>
+                    <select class="senai-input" name="estado">
+                        <option value="BOM">Bom</option>
+                        <option value="REGULAR">Regular</option>
+                        <option value="RUIM">Ruim</option>
+                        <option value="INATIVO">Inativo</option>
+                    </select>
+                    <button class="senai-button" type="submit" style="margin-top:8px;">Salvar</button>
+                </form>
+            </div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Ativos Cadastrados</h2>
+                <table style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#F3F4F6;">
+                            <th style="padding:10px; text-align:left;">Nome</th>
+                            <th style="padding:10px; text-align:left;">Nº Patrimônio</th>
+                            <th style="padding:10px; text-align:left;">Localização</th>
+                            <th style="padding:10px; text-align:left;">Estado</th>
+                            <th style="padding:10px; text-align:left;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ativo : ${ativos}" style="border-top:1px solid #E5E7EB;">
+                            <td style="padding:10px;" th:text="${ativo.nome}"></td>
+                            <td style="padding:10px;" th:text="${ativo.numeroPatrimonio}"></td>
+                            <td style="padding:10px;" th:text="${ativo.localizacao}"></td>
+                            <td style="padding:10px;" th:text="${ativo.estado}"></td>
+                            <td style="padding:10px;">
+                                <a th:href="@{/ativos/deletar/{id}(id=${ativo.id})}"
+                                   style="color:#E30613; font-weight:700; text-decoration:none;"
+                                   onclick="return confirm('Deseja excluir?')">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

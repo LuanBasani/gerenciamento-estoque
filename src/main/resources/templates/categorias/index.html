@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Categorias | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main class="senai-main">
+        <div class="senai-shell" style="display:block;">
+            <h1 class="senai-title">Categorias</h1>
+            <div th:if="${erro}" class="senai-alert senai-alert-error"><p th:text="${erro}"></p></div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Nova Categoria</h2>
+                <form th:action="@{/categorias/salvar}" method="post" class="senai-form">
+                    <label class="senai-label">Nome</label>
+                    <input class="senai-input" type="text" name="nome" required maxlength="100"/>
+                    <label class="senai-label">Descrição</label>
+                    <input class="senai-input" type="text" name="descricao" maxlength="255"/>
+                    <button class="senai-button" type="submit" style="margin-top:8px;">Salvar</button>
+                </form>
+            </div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Categorias Cadastradas</h2>
+                <table style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#F3F4F6;">
+                            <th style="padding:10px; text-align:left;">Nome</th>
+                            <th style="padding:10px; text-align:left;">Descrição</th>
+                            <th style="padding:10px; text-align:left;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cat : ${categorias}" style="border-top:1px solid #E5E7EB;">
+                            <td style="padding:10px;" th:text="${cat.nome}"></td>
+                            <td style="padding:10px;" th:text="${cat.descricao}"></td>
+                            <td style="padding:10px;">
+                                <a th:href="@{/categorias/deletar/{id}(id=${cat.id})}" 
+                                   style="color:#E30613; font-weight:700; text-decoration:none;"
+                                   onclick="return confirm('Deseja excluir?')">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

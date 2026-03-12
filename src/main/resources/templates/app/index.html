@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Área Interna | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="justify-content:center;">
+                <div class="senai-card" style="width:100%;">
+                    <h1 class="senai-title" style="font-size:22px;">Área interna</h1>
+                    <p class="senai-subtitle">Você está logado.</p>
+                    <p style="margin:12px 0 0;" th:if="${nif}">
+                        <strong>NIF:</strong> <span th:text="${nif}"></span>
+                    </p>
+                    <div class="senai-actions" style="margin-top:16px;">
+                        <a class="senai-button" th:href="@{/logout}">Logout</a>
+                        <a class="senai-link" th:href="@{/}">Voltar para a tela inicial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

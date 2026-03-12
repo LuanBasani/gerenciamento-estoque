@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Movimentações | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main class="senai-main">
+        <div class="senai-shell" style="display:block;">
+            <h1 class="senai-title">Movimentações de Estoque</h1>
+            <div th:if="${erro}" class="senai-alert senai-alert-error"><p th:text="${erro}"></p></div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Nova Movimentação</h2>
+                <form th:action="@{/movimentacoes/salvar}" method="post" class="senai-form">
+                    <label class="senai-label">Material</label>
+                    <select class="senai-input" name="materialId" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="mat : ${materiais}" th:value="${mat.id}" th:text="${mat.nome}"></option>
+                    </select>
+                    <label class="senai-label">Tipo</label>
+                    <select class="senai-input" name="tipo" required>
+                        <option value="ENTRADA">Entrada</option>
+                        <option value="SAIDA">Saída</option>
+                    </select>
+                    <label class="senai-label">Quantidade</label>
+                    <input class="senai-input" type="number" name="quantidade" min="1" required/>
+                    <label class="senai-label">Observação</label>
+                    <input class="senai-input" type="text" name="observacao" maxlength="255"/>
+                    <button class="senai-button" type="submit" style="margin-top:8px;">Registrar</button>
+                </form>
+            </div>
+
+            <div class="senai-card" style="margin-top:16px;">
+                <h2 style="margin:0 0 12px; font-size:18px;">Histórico</h2>
+                <table style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#F3F4F6;">
+                            <th style="padding:10px; text-align:left;">Material</th>
+                            <th style="padding:10px; text-align:left;">Tipo</th>
+                            <th style="padding:10px; text-align:left;">Quantidade</th>
+                            <th style="padding:10px; text-align:left;">Observação</th>
+                            <th style="padding:10px; text-align:left;">Data/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mov : ${movimentacoes}" style="border-top:1px solid #E5E7EB;">
+                            <td style="padding:10px;" th:text="${mov.material.nome}"></td>
+                            <td style="padding:10px;" th:text="${mov.tipo}"></td>
+                            <td style="padding:10px;" th:text="${mov.quantidade}"></td>
+                            <td style="padding:10px;" th:text="${mov.observacao}"></td>
+                            <td style="padding:10px;" th:text="${mov.dataHora}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
